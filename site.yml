@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  name: Azure provisioning
+  gather_facts: false
+
+  tasks:
+    - name: Create Linux VM
+      azure_rm_virtualmachine:
+        resource_group: ansibleWorkshop
+        name: linuxVM-1
+        vm_size: Standard_D1
+        admin_username: bhirsch
+        admin_password: 
+        image:
+         offer: CentOS
+         publisher: OpenLogic
+         sku: '7.2'
+         version: latest
