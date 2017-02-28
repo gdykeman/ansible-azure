@@ -4,5 +4,5 @@
   gather_facts: false
 
   roles:
-#    - deploy
-    - teardown
+    - {role: deploy, tags: ['deploy']}
+    - {role: teardown, tags: ['teardown']}
