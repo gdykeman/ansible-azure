@@ -1,2 +1,1 @@
-# ansible-azure
-Playbooks for provisioning
+# azure-ansible

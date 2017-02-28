@@ -1,0 +1,14 @@
+---
+# tasks file for deploy
+- name: Create VM
+  azure_rm_virtualmachine:
+    resource_group: "{{ resource }}"
+    name: "{{ vmname }}"
+    vm_size: "{{ D1 }}"
+    admin_username: "{{ username }}"
+    admin_password: "{{ password }}"
+    image:
+     offer: CentOS
+     publisher: OpenLogic
+     sku: '7.2'
+     version: latest

@@ -1,0 +1,8 @@
+---
+# tasks file for teardown
+- name: Remove VM
+  azure_rm_virtualmachine:
+    resource_group: "{{ resource }}"
+    name: "{{ vmname }}"
+    state: absent
+    remove_on_absent: all
