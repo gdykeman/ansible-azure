@@ -22,7 +22,9 @@
 - name: Create a public ip address
   azure_rm_publicipaddress:
     resource_group: "{{ resource }}"
-    name: "{{ vmname }}-ip"
+    name: "{{ item }}-ip"
+  with_items:
+     - "{{ vmname }}"
 
 - name: create security group
   azure_rm_securitygroup:
@@ -39,24 +41,28 @@
 
 - name: Create a network interface using existing security group and public IP
   azure_rm_networkinterface:
-        name: "{{ vmname }}-nic"
+        name: "{{ item }}-nic"
         resource_group: "{{ resource }}"
         virtual_network_name: "{{ resource }}-vnet"
         subnet_name: "{{ resource }}-subnet"
         security_group_name: "{{ resource }}-security"
-        public_ip_address_name: "{{ vmname }}-ip"
+        public_ip_address_name: "{{ item }}-ip"
+  with_items:
+    - "{{ vmname }}"
 
 - name: create a storage account
   azure_rm_storageaccount:
     resource_group: "{{ resource }}"
-    name: "{{ vmname }}sa"
+    name: "{{ item }}sa"
     type: Standard_LRS
+  with_items:
+    - "{{ vmname }}"
 
 - name: Create VM
   azure_rm_virtualmachine:
     resource_group: "{{ resource }}"
-    name: "{{ vmname }}"
-    vm_size: "{{ D1 }}"
+    name: "{{ item }}"
+    vm_size: "{{ vmsize }}"
     admin_username: "{{ username }}"
     admin_password: "{{ password }}"
     image:
@@ -64,3 +70,5 @@
      publisher: OpenLogic
      sku: '7.2'
      version: latest
+  with_items:
+    - "{{ vmname }}"

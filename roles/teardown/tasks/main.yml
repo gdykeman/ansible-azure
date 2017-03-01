@@ -3,14 +3,18 @@
 - name: remove vm and all resources
   azure_rm_virtualmachine:
     resource_group: "{{ resource }}"
-    name: "{{ vmname }}"
+    name: "{{ item }}"
     state: absent
+  with_items:
+     - "{{ vmname }}"
 
 - name: Delete network interface using existing security group and public IP
   azure_rm_networkinterface:
-        name: "{{ vmname }}-nic"
+        name: "{{ item }}-nic"
         resource_group: "{{ resource }}"
         state: absent
+  with_items:
+     - "{{ vmname }}"
 
 - name: Delete subnet
   azure_rm_subnet:
@@ -22,8 +26,10 @@
 - name: Delete public ip address
   azure_rm_publicipaddress:
     resource_group: "{{ resource }}"
-    name: "{{ vmname }}-ip"
+    name: "{{ item }}-ip"
     state: absent
+  with_items:
+     - "{{ vmname }}"
 
 - name: Delete vnet
   azure_rm_virtualnetwork:
@@ -40,10 +46,13 @@
 - name: create a storage account
   azure_rm_storageaccount:
     resource_group: "{{ resource }}"
-    name: "{{ vmname }}sa"
+    name: "{{ item }}sa"
     state: absent
+  with_items:
+     - "{{ vmname }}"
 
 - name: Delete resource group
   azure_rm_resourcegroup:
     name: "{{ resource }}"
     state: absent
+    force: true

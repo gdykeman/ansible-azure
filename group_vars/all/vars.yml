@@ -1,5 +1,4 @@
 ---
 username: ansible
-D1: Standard_D1
-vmname: ansibletest1
+vmsize: Standard_D1
 resource: ansibleresource
