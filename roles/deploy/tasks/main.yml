@@ -49,7 +49,7 @@
 - name: create a storage account
   azure_rm_storageaccount:
     resource_group: "{{ resource }}"
-    name: "{{ vmname }}-storage"
+    name: "{{ vmname }}sa"
     type: Standard_LRS
 
 - name: Create VM
