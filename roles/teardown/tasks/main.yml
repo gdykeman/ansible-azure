@@ -1,8 +1,49 @@
 ---
 # tasks file for teardown
-- name: Remove VM
+- name: remove vm and all resources
   azure_rm_virtualmachine:
     resource_group: "{{ resource }}"
     name: "{{ vmname }}"
     state: absent
-    remove_on_absent: all
+
+- name: Delete network interface using existing security group and public IP
+  azure_rm_networkinterface:
+        name: "{{ vmname }}-nic"
+        resource_group: "{{ resource }}"
+        state: absent
+
+- name: Delete subnet
+  azure_rm_subnet:
+    name: "{{ resource }}-subnet"
+    virtual_network_name: "{{ resource }}-vnet"
+    resource_group: "{{ resource }}"
+    state: absent
+
+- name: Delete public ip address
+  azure_rm_publicipaddress:
+    resource_group: "{{ resource }}"
+    name: "{{ vmname }}-ip"
+    state: absent
+
+- name: Delete vnet
+  azure_rm_virtualnetwork:
+    name: "{{ resource }}-vnet"
+    resource_group: "{{ resource }}"
+    state: absent
+
+- name: Delete security group
+  azure_rm_securitygroup:
+      resource_group: "{{ resource }}"
+      name: "{{ resource }}-security"
+      state: absent
+
+- name: create a storage account
+  azure_rm_storageaccount:
+    resource_group: "{{ resource }}"
+    name: "{{ vmname }}-storage"
+    state: absent
+
+- name: Delete resource group
+  azure_rm_resourcegroup:
+    name: "{{ resource }}"
+    state: absent

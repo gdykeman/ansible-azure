@@ -46,11 +46,11 @@
         security_group_name: "{{ resource }}-security"
         public_ip_address_name: "{{ vmname }}-ip"
 
-#- name: create a storage account
-#  azure_rm_storageaccount:
-#    resource_group: "{{ resource }}"
-#    name: "{{ vmname }}-storage"
-#    type: Standard_LRS
+- name: create a storage account
+  azure_rm_storageaccount:
+    resource_group: "{{ resource }}"
+    name: "{{ vmname }}-storage"
+    type: Standard_LRS
 
 - name: Create VM
   azure_rm_virtualmachine:

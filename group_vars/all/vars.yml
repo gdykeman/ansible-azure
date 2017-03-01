@@ -2,3 +2,4 @@
 username: ansible
 D1: Standard_D1
 vmname: ansibletest1
+resource: ansibleresource
