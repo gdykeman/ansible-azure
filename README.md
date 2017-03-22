@@ -11,7 +11,21 @@ This playbook was created to create and teardown Linux VMs in a specified Azure 
 ### Create new Linux VMs 
 ansible-playbook site.yml --tags "deploy" --ask-vault-pass -e @vms.yml
 
-## vms.yml example
+
+
+## roles
+- deploy - Create VMs and all required VM resources, i.e. Resource Group, Virtual Network, NIC, IP, Storage Account
+- teardown - Destroy VMS and all required VM resources, i.e. Resource Group, Virtual Network, NIC, IP, Storage Account
+
+## group_vars
+### vars.yml
+- username
+- vmsize
+- resource
+### vault.yml
+encypted 
+
+### vms.yml example
 ```
 ---
   vmname:
@@ -19,18 +33,6 @@ ansible-playbook site.yml --tags "deploy" --ask-vault-pass -e @vms.yml
      - linuxvm2
      - linuxvm3
 ```
-
-## roles
-deploy - Create VMs and all required VM resources, i.e. Resource Group, Virtual Network, NIC, IP, Storage Account
-teardown - Destroy VMS and all required VM resources, i.e. Resource Group, Virtual Network, NIC, IP, Storage Account
-
-## group_vars
-### vars.yml
-username
-vmsize
-resource
-### vault.yml
-encypted 
 
 
 
